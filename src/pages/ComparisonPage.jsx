@@ -1,18 +1,6 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import { GlobalContext } from "../contexts/GlobalContext";
 
-const comparisonFields = [
-    { label: "Category", key: "category" },
-    { label: "Price", key: "price", format: (value) => `${value}€` },
-    { label: "Players", key: "players", format: (_, product) => `${product.minPlayers}-${product.maxPlayers}` },
-    { label: "Play time", key: "playTime", format: (value) => `${value} min` },
-    { label: "Min age", key: "minAge", format: (value) => `${value}+` },
-    { label: "Publisher", key: "publisher" },
-    { label: "Release year", key: "releaseYear" },
-    { label: "Difficulty", key: "difficulty" },
-    { label: "Rating", key: "rating" },
-];
-
 export default function ComparisonPage() {
     const { products } = useContext(GlobalContext);
 
@@ -67,13 +55,6 @@ export default function ComparisonPage() {
         [selectedProducts, products, secondProductId]
     );
 
-    if (!products.length) {
-        return (
-            <div className="container mt-4">
-                <div className="alert alert-info">Loading products...</div>
-            </div>
-        );
-    }
 
     if (!productA || !productB) {
         return (
@@ -124,8 +105,8 @@ export default function ComparisonPage() {
             </div>
 
             <div className="row g-4 align-items-stretch">
-                {[productA, productB].map((product, index) => (
-                    <div key={product.id ?? index} className="col-md-6">
+                {[productA, productB].map((product) => (
+                    <div key={product.id} className="col-md-6">
                         <div className="card h-100 shadow-sm border-0">
                             <img
                                 src={product.image}
@@ -139,7 +120,7 @@ export default function ComparisonPage() {
                                 <p className="text-muted mb-3">{product.publisher} · {product.releaseYear}</p>
                                 <p className="h5 mb-3">{product.price}€</p>
                                 <div className="mb-3">
-                                    <i className="bi bi-star-fill text-warning"></i>
+                                    <i className="bi bi-star-fill text-warning" />
                                     <span className="ms-2">{product.rating}</span>
                                 </div>
                                 <p className="card-text text-secondary">{product.description}</p>
@@ -162,22 +143,51 @@ export default function ComparisonPage() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {comparisonFields.map((field) => {
-                                    const leftValue = field.format
-                                        ? field.format(productA[field.key], productA)
-                                        : productA[field.key];
-                                    const rightValue = field.format
-                                        ? field.format(productB[field.key], productB)
-                                        : productB[field.key];
-
-                                    return (
-                                        <tr key={field.key}>
-                                            <th scope="row">{field.label}</th>
-                                            <td>{leftValue}</td>
-                                            <td>{rightValue}</td>
-                                        </tr>
-                                    );
-                                })}
+                                <tr>
+                                    <th scope="row">Category</th>
+                                    <td>{productA.category}</td>
+                                    <td>{productB.category}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Price</th>
+                                    <td>{productA.price} €</td>
+                                    <td>{productB.price} €</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Players</th>
+                                    <td>{productA.minPlayers} - {productA.maxPlayers}</td>
+                                    <td>{productB.minPlayers} - {productB.maxPlayers}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Play time</th>
+                                    <td>{productA.playTime} min</td>
+                                    <td>{productB.playTime} min</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Min age</th>
+                                    <td>{productA.minAge}+</td>
+                                    <td>{productB.minAge}+</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Publisher</th>
+                                    <td>{productA.publisher}</td>
+                                    <td>{productB.publisher}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Release year</th>
+                                    <td>{productA.releaseYear}</td>
+                                    <td>{productB.releaseYear}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Difficulty</th>
+                                    <td>{productA.difficulty}</td>
+                                    <td>{productB.difficulty}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Rating</th>
+                                    <td><i className="bi bi-star-fill text-warning" />{productA.rating}/5</td>
+                                    <td><i className="bi bi-star-fill text-warning" />{productB.rating}/5</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
