@@ -26,7 +26,15 @@ export default function ProductsList() {
         setAlphabeticOrder((prev) => !prev)
     }
 
-    const filterList = ["categoria 1", "categoria 2", "categoria 3"]
+    const filterList = [
+        "Strategy",
+        "Family",
+        "Investigation",
+        "Party",
+        "Abstract",
+        "Cooperative",
+        "Card Game"
+    ];
 
     return (
         <div className="container mt-4">

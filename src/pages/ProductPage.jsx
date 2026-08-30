@@ -1,21 +1,40 @@
 import { useContext, useEffect } from "react";
-import { GlobalContext } from "../context/GlobalContext";
+import { GlobalContext } from "../contexts/GlobalContext";
 import { useParams, useNavigate } from "react-router-dom";
 
 export default function ProductPage() {
 
-    const { products } = useContext(GlobalContext);
+    const { product, fetchSingleProduct, isLoading, notFound, favourites, setFavourites } = useContext(GlobalContext);
     const { id } = useParams();
 
     const navigate = useNavigate();
 
-    const product = products.find(product => product.id == parseInt(id));
+    useEffect(() => {
+        fetchSingleProduct(id);
+    }, [id]);
 
     useEffect(() => {
-        if (!product) {
+        if (notFound) {
             navigate("/");
         }
-    }, [product]);
+    }, [notFound]);
+
+    if (isLoading || !product) {
+        return null;
+    }
+
+    const handleFavourites = (id) => {
+        const safeFavourites = Array.isArray(favourites) ? favourites : [];
+        const isFavourite = safeFavourites.some((favourite) => favourite?.id === Number(id));
+
+        const newFavourites = isFavourite
+            ? safeFavourites.filter((fav) => fav?.id !== Number(id))
+            : [...safeFavourites, product];
+
+        console.log(newFavourites)
+
+        setFavourites(newFavourites);
+    };
 
     return (
         <div className="container mt-5">
@@ -43,7 +62,7 @@ export default function ProductPage() {
                     <div className="mb-4">
                         <h5>Description:</h5>
                         <p><strong>{product.minPlayers}-{product.maxPlayers} players</strong></p>
-                        <p>Play time: {product.play.time}</p>
+                        <p>Play time: {product.playTime} min</p>
                         <p className="mb-4">{product.description}</p>
                         <p style={{
                             backgroundColor: product.difficulty == "High"
@@ -55,8 +74,8 @@ export default function ProductPage() {
                         }}>{product.difficulty}</p>
                     </div>
 
-                    <button className="btn btn-outline-secondary btn-lg mb-3">
-                        <i className="bi bi-heart"></i> Add to Favourites
+                    <button className="btn btn-outline-secondary btn-lg mb-3" onClick={() => handleFavourites(id)}>
+                        <i className="bi bi-balloon-heart"></i> Add to Favourites
                     </button>
 
                 </div>
