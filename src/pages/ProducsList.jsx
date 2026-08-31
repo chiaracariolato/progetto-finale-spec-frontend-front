@@ -9,32 +9,39 @@ export default function ProductsList() {
     const [category, setCategory] = useState("All categories")
     const [alphabeticOrder, setAlphabeticOrder] = useState(true)
     const [searchedProducts, setSearchedProducts] = useState([]);
+    const [filterList, setFilterList] = useState([])
 
     useEffect(() => {
         const filteredProducts = products.filter((product) =>
             product.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
             (category === "All categories" || product.category === category))
-            .sort((a, b) => {
-                const comparison = a.title.localeCompare(b.title);
-                return alphabeticOrder ? comparison : -comparison;
-            });
-        setSearchedProducts(filteredProducts);
 
+        filteredProducts.sort((a, b) => {
+            let comparison;
+            if (alphabeticOrder) {
+                comparison = a.title.localeCompare(b.title);
+            } else {
+                comparison = b.title.localeCompare(a.title);
+            }
+            return comparison
+        });
+
+        setSearchedProducts(filteredProducts);
     }, [searchQuery, products, category, alphabeticOrder]);
 
     function changeOrder() {
-        setAlphabeticOrder((prev) => !prev)
+        setAlphabeticOrder(!alphabeticOrder)
     }
 
-    const filterList = [
-        "Strategy",
-        "Family",
-        "Investigation",
-        "Party",
-        "Abstract",
-        "Cooperative",
-        "Card Game"
-    ];
+    useEffect(() => {
+        const newFilterList = []
+
+        for (let i = 0; i < products.length; i++) {
+            if (!newFilterList.includes(products[i].category)) newFilterList.push(products[i].category)
+        }
+
+        setFilterList(newFilterList);
+    }, [products]);
 
     return (
         <div className="container mt-4">

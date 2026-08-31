@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { GlobalContext } from "../contexts/GlobalContext";
 import { useParams, useNavigate } from "react-router-dom";
+import Rating from "../components/Rating";
 
 export default function ProductPage() {
 
@@ -52,12 +53,7 @@ export default function ProductPage() {
                         <span className="h4 me-2">{product.price}€</span>
                     </div>
                     <div className="mb-3">
-                        <i className="bi bi-star-fill text-warning"></i>
-                        <i className="bi bi-star-fill text-warning"></i>
-                        <i className="bi bi-star-fill text-warning"></i>
-                        <i className="bi bi-star-fill text-warning"></i>
-                        <i className="bi bi-star-half text-warning"></i>
-                        <span className="ms-2">{product.rating}</span>
+                        <Rating rating={product.rating} />
                     </div>
                     <div className="mb-4">
                         <h5>Description:</h5>
