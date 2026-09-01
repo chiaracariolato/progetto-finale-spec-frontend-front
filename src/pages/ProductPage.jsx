@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../contexts/GlobalContext";
 import { useParams, useNavigate } from "react-router-dom";
 import Rating from "../components/Rating";
@@ -7,6 +7,8 @@ export default function ProductPage() {
 
     const { product, fetchSingleProduct, isLoading, notFound, favourites, setFavourites } = useContext(GlobalContext);
     const { id } = useParams();
+
+    const [isFavourite, setIsFavourite] = useState(favourites.some(product => product.id == id))
 
     const navigate = useNavigate();
 
@@ -24,8 +26,6 @@ export default function ProductPage() {
         return null;
     }
 
-    const isFavourite = favourites.some(product => product.id == id);
-
     function handleFavourites(id) {
 
         let newFavourites;
@@ -35,6 +35,8 @@ export default function ProductPage() {
         } else {
             newFavourites = [...favourites, { id: id, title: product.title }]
         }
+
+        setIsFavourite(!isFavourite)
         setFavourites(newFavourites)
 
     }
