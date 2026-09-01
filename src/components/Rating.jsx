@@ -25,22 +25,22 @@ const Rating = ({ rating }) => {
     return (
         <>
             {
-                fullStarArray.map(e =>
-                    <i className="bi bi-star-fill text-warning"></i>
+                fullStarArray.map((e, i) =>
+                    <i key={i} className="bi bi-star-fill text-warning"></i>
                 )
             }
 
             {
-                halfStarArray.map(e =>
-                    <i className="bi bi-star-half text-warning"></i>
+                halfStarArray.map((e, i) =>
+                    <i key={i} className="bi bi-star-half text-warning"></i>
                 )
             }
             {
-                emptyStarArray.map(e =>
-                    <i className="bi bi-star text-warning"></i>
+                emptyStarArray.map((e, i) =>
+                    <i key={i} className="bi bi-star text-warning"></i>
                 )
             }
-            <span className="ms-2">{rating}</span>
+            <span className="ms-2 fs-5 fw-bolder">{rating}</span>
         </>
     )
 }

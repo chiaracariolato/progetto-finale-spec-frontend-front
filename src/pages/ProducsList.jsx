@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { GlobalContext } from "../contexts/GlobalContext";
-import Card from "../components/Card";
+import ProductRow from "../components/ProductRow";
 
 export default function ProductsList() {
     const { products } = useContext(GlobalContext);
@@ -10,6 +10,17 @@ export default function ProductsList() {
     const [alphabeticOrder, setAlphabeticOrder] = useState(true)
     const [searchedProducts, setSearchedProducts] = useState([]);
     const [filterList, setFilterList] = useState([])
+    const [sortBy, setSortBy] = useState("");
+    const [sortOrder, setSortOrder] = useState(1);
+
+    const handleSort = (column) => {
+        if (sortBy === column) {
+            setSortOrder(sortOrder * -1);
+        } else {
+            setSortBy(column);
+            setSortOrder(1);
+        }
+    };
 
     useEffect(() => {
         const filteredProducts = products.filter((product) =>
@@ -17,21 +28,20 @@ export default function ProductsList() {
             (category === "All categories" || product.category === category))
 
         filteredProducts.sort((a, b) => {
-            let comparison;
-            if (alphabeticOrder) {
+            let comparison = 0;
+
+            if (sortBy === "title") {
                 comparison = a.title.localeCompare(b.title);
-            } else {
-                comparison = b.title.localeCompare(a.title);
             }
-            return comparison
+
+            if (sortBy === "category") {
+                comparison = a.category.localeCompare(b.category);
+            }
+
+            return comparison * sortOrder;
         });
-
         setSearchedProducts(filteredProducts);
-    }, [searchQuery, products, category, alphabeticOrder]);
-
-    function changeOrder() {
-        setAlphabeticOrder(!alphabeticOrder)
-    }
+    }, [searchQuery, products, category, sortBy, sortOrder]);
 
     useEffect(() => {
         const newFilterList = []
@@ -66,16 +76,40 @@ export default function ProductsList() {
                             ))
                         }
                     </select>
-
-                    <button onClick={changeOrder} className="btn btn-outline-secondary btn-sm flex-shrink-0">{alphabeticOrder ? "A-Z" : "Z-A"}</button>
                 </div>
-
-
             </div>
 
-            {searchedProducts.map((product) => (
-                <Card key={product.id} product={product} />
-            ))}
+
+            <div>
+                <table className="table mt-4">
+                    <thead>
+                        <tr>
+                            <th scope="col"
+                                onClick={() => handleSort("title")}
+                                className={sortBy == "title" ? 'text-primary' : "black"}
+                                style={{
+                                    textDecoration: sortBy == "title" && 'underline',
+                                    cursor: "pointer"
+                                }}>Title {sortBy == "title" && <i className="bi bi-sort-alpha-down"></i>}</th>
+                            <th scope="col"
+                                onClick={() => handleSort("category")}
+                                className={sortBy == "category" ? 'text-primary' : "black"}
+                                style={{
+                                    textDecoration: sortBy == "category" ? 'underline' : "",
+                                    cursor: "pointer"
+                                }}>Category {sortBy == "category" && <i className="bi bi-sort-alpha-down"></i>}</th>
+                            <th />
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {searchedProducts.map((product) => (
+                            <ProductRow key={product.id} product={product} />
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+
+
         </div >
     )
 }
