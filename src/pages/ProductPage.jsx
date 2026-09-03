@@ -43,11 +43,24 @@ export default function ProductPage() {
 
     return (
         <div className="container mt-5">
-            <div className="row"><h2 className="mb-5">{product.title}</h2></div>
+            <div className="row d-flex justify-content-between">
+                <h2 className="mb-5 col-6">{product.title}</h2>
+                <div className="mb-5 col-6 d-flex flex-row-reverse align-items-end">
+                    <span className="h4">{product.price}€</span>
+                </div></div>
             <div className="row">
 
-                <div className="col-md-6 mb-4">
-                    <img src={product.image} alt={product.title} className="img-fluid rounded mb-3 product-image" />
+                <div className="col-md-6 mb-4 d-flex align-items-center justify-content-center">
+                    <div className="product-image-wrapper position-relative">
+                        <img src={product.image} alt={product.title} className="rounded product-image" />
+
+                        <button className="btn position-absolute top-0 end-0 m-2 favourite-btn"
+                            onClick={() => handleFavourites(id)}>
+                            <i className={
+                                isFavourite ? "bi bi-balloon-heart-fill fs-3" : "bi bi-balloon-heart fs-3"
+                            }></i>
+                        </button>
+                    </div>
                 </div>
 
                 <div className="col-md-6">
@@ -102,17 +115,6 @@ export default function ProductPage() {
                                     : 'badge rounded-pill text-bg-info'
                         }>Difficulty: {product.difficulty}</p>
                     </div>
-
-                    <div className="mb-3">
-                        <span className="h4 me-2">{product.price}€</span>
-                    </div>
-
-                    <button className="btn mb-3" onClick={() => handleFavourites(id)}>
-                        <i className={
-                            isFavourite ? "bi bi-balloon-heart-fill fs-3" : "bi bi-balloon-heart fs-3"
-                        }></i>
-                        {isFavourite ? "Remove" : "Add"}
-                    </button>
 
                 </div>
             </div>

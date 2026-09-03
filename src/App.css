@@ -11,3 +11,30 @@ h3,
 p {
   margin: 0;
 }
+
+.product-image {
+  width: 100%;
+  max-width: 400px;
+  height: 400px;
+  object-fit: contain;
+}
+
+.product-image-wrapper {
+  width: 400px;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.favourite-btn {
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: white !important;
+  border-color: black !important;
+  color: #212529;
+
+  font-size: 1.4rem;
+}
