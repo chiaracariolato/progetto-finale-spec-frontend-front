@@ -7,7 +7,6 @@ export default function ProductsList() {
 
     const [searchQuery, setSearchQuery] = useState('');
     const [category, setCategory] = useState("All categories")
-    const [alphabeticOrder, setAlphabeticOrder] = useState(true)
     const [searchedProducts, setSearchedProducts] = useState([]);
     const [filterList, setFilterList] = useState([])
     const [sortBy, setSortBy] = useState("");
@@ -91,7 +90,9 @@ export default function ProductsList() {
                                 style={{
                                     textDecoration: sortBy == "title" && 'underline',
                                     cursor: "pointer"
-                                }}>Title {sortBy == "title" && <i className="bi bi-sort-alpha-down"></i>}
+                                }}>Title {sortBy == "title" && <i className={
+                                    sortOrder === 1 ? "bi bi-sort-alpha-down" : "bi bi-sort-alpha-up"
+                                } />}
                             </th>
                             <th scope="col"
                                 onClick={() => handleSort("category")}
@@ -99,7 +100,8 @@ export default function ProductsList() {
                                 style={{
                                     textDecoration: sortBy == "category" ? 'underline' : "",
                                     cursor: "pointer"
-                                }}>Category {sortBy == "category" && <i className="bi bi-sort-alpha-down"></i>}
+                                }}>Category {sortBy == "category" && <i className={
+                                    sortOrder === 1 ? "bi bi-sort-alpha-down" : "bi bi-sort-alpha-up"} />}
                             </th>
                             <th />
                         </tr>

@@ -25,15 +25,34 @@ const ProductRow = memo(({ product }) => {
 
     return (
         <tr>
-            <td className="px-3 align-middle" style={{ width: "10%" }}><button className="btn favourite-btn"
-                onClick={() => handleFavourites(product.id)}>
-                <i className={
-                    isFavourite ? "bi bi-balloon-heart-fill" : "bi bi-balloon-heart"
-                }></i>
-            </button></td>
-            <td scope="row" className="px-3 align-middle" style={{ width: "35%" }}>{product.title}</td>
-            <td className="px-3 align-middle" style={{ width: "35%" }}>{product.category}</td>
-            <td className="text-end px-3 align-middle" style={{ width: "20%" }}><Link to={`/product/${product.id}`}><i className="bi bi-arrow-right-short fs-3" style={{ color: "black" }}></i></Link></td>
+            <td className="px-3 align-middle" style={{ width: "5%" }}>
+                <button className="btn favourite-btn"
+                    onClick={() => handleFavourites(product.id)}>
+                    <i className={
+                        isFavourite ? "bi bi-heart-fill" : "bi bi-heart"
+                    }></i>
+                </button>
+
+            </td>
+            <td scope="row" className="px-3 align-middle" style={{ width: "40%" }}>
+                <Link
+                    to={`/product/${product.id}`}
+                    className="text-decoration-none text-reset d-block">
+                    {product.title}
+                </Link>
+            </td>
+            <td className="px-3 align-middle" style={{ width: "40%" }}>
+                <Link
+                    to={`/product/${product.id}`}
+                    className="text-decoration-none text-reset d-block">
+                    {product.category}
+                </Link>
+            </td>
+            <td className="text-end px-3 align-middle" style={{ width: "15%" }}>
+                <Link to={`/product/${product.id}`}>
+                    <i className="bi bi-arrow-right-short fs-3" style={{ color: "white" }} />
+                </Link>
+            </td>
         </tr >
     );
 })

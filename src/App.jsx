@@ -13,18 +13,14 @@ function App() {
   return (
     <GlobalContextProvider>
       <BrowserRouter>
-        <div className="container" style={{ minHeight: '100vh' }}>
-          <div className="container mt-0">
-            <Routes>
-              <Route element={<DefaultLayout />}>
-                <Route index element={<ProductsList />} />
-                <Route path="/product/:id" element={<ProductPage />} />
-                <Route path="/comparison" element={<ComparisonPage />} />
-                <Route path="*" element={<NotFound />} />
-              </Route>
-            </Routes>
-          </div>
-        </div >
+        <Routes>
+          <Route element={<DefaultLayout />}>
+            <Route index element={<ProductsList />} />
+            <Route path="/product/:id" element={<ProductPage />} />
+            <Route path="/comparison" element={<ComparisonPage />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
       </BrowserRouter>
     </GlobalContextProvider>
   )

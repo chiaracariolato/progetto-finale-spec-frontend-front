@@ -57,7 +57,7 @@ export default function ProductPage() {
                         <button className="btn position-absolute top-0 end-0 m-2 favourite-btn"
                             onClick={() => handleFavourites(id)}>
                             <i className={
-                                isFavourite ? "bi bi-balloon-heart-fill" : "bi bi-balloon-heart"
+                                isFavourite ? "bi bi-heart-fill" : "bi bi-heart"
                             }></i>
                         </button>
                     </div>
@@ -76,7 +76,7 @@ export default function ProductPage() {
 
                     <div className="row gx-3 align-items-start mb-4">
                         <div className="col-4">
-                            <div className="bg-light rounded-3 px-3 py-2 text-center">
+                            <div className="detail-card rounded-3 px-3 py-2 text-center">
                                 <p className="fw-bold mb-0">Players:</p>
                                 <p className="mb-0">
                                     {product.minPlayers}-{product.maxPlayers}
@@ -85,7 +85,7 @@ export default function ProductPage() {
                         </div>
 
                         <div className="col-4">
-                            <div className="bg-light rounded-3 px-3 py-2 text-center">
+                            <div className="detail-card rounded-3 px-3 py-2 text-center">
                                 <p className="fw-bold mb-0">Age:</p>
                                 <p className="mb-0">
                                     {product.minAge}+
@@ -94,7 +94,7 @@ export default function ProductPage() {
                         </div>
 
                         <div className="col-4">
-                            <div className="bg-light rounded-3 px-3 py-2 text-center">
+                            <div className="detail-card rounded-3 px-3 py-2 text-center">
                                 <p className="fw-bold mb-0">Play time:</p>
                                 <p className="mb-0">
                                     {product.playTime} min
