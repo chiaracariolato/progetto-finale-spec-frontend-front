@@ -31,13 +31,13 @@ export default function ProductPage() {
         let newFavourites;
 
         if (isFavourite) {
-            newFavourites = favourites.filter(product => product.id !== id)
+            newFavourites = favourites.filter(product => product.id != id)
         } else {
             newFavourites = [...favourites, { id: id, title: product.title }]
         }
 
         setIsFavourite(!isFavourite)
-        setFavourites(newFavourites)
+        setFavourites([...newFavourites])
 
     }
 

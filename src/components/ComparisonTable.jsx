@@ -1,6 +1,8 @@
 import Rating from "./Rating"
 
-export default function ComparisonTable({ productA, productB }) {
+export default function ComparisonTable(props) {
+
+    const { productA, productB } = props;
 
     return (
         <div className="table-responsive">
