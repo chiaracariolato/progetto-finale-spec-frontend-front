@@ -57,7 +57,7 @@ export default function ProductPage() {
                         <button className="btn position-absolute top-0 end-0 m-2 favourite-btn"
                             onClick={() => handleFavourites(id)}>
                             <i className={
-                                isFavourite ? "bi bi-balloon-heart-fill fs-3" : "bi bi-balloon-heart fs-3"
+                                isFavourite ? "bi bi-balloon-heart-fill" : "bi bi-balloon-heart"
                             }></i>
                         </button>
                     </div>

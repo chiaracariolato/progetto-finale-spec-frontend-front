@@ -84,20 +84,23 @@ export default function ProductsList() {
                 <table className="table mt-4">
                     <thead>
                         <tr>
+                            <th />
                             <th scope="col"
                                 onClick={() => handleSort("title")}
                                 className={sortBy == "title" ? 'text-primary' : "black"}
                                 style={{
                                     textDecoration: sortBy == "title" && 'underline',
                                     cursor: "pointer"
-                                }}>Title {sortBy == "title" && <i className="bi bi-sort-alpha-down"></i>}</th>
+                                }}>Title {sortBy == "title" && <i className="bi bi-sort-alpha-down"></i>}
+                            </th>
                             <th scope="col"
                                 onClick={() => handleSort("category")}
                                 className={sortBy == "category" ? 'text-primary' : "black"}
                                 style={{
                                     textDecoration: sortBy == "category" ? 'underline' : "",
                                     cursor: "pointer"
-                                }}>Category {sortBy == "category" && <i className="bi bi-sort-alpha-down"></i>}</th>
+                                }}>Category {sortBy == "category" && <i className="bi bi-sort-alpha-down"></i>}
+                            </th>
                             <th />
                         </tr>
                     </thead>
