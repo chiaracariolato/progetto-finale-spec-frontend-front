@@ -23,7 +23,7 @@ export default function ProductsList() {
 
     useEffect(() => {
         const filteredProducts = products.filter((product) =>
-            product.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+            product.title.toLowerCase().startsWith(searchQuery.toLowerCase()) &&
             (category === "All categories" || product.category === category))
 
         filteredProducts.sort((a, b) => {
