@@ -5,6 +5,7 @@ import ComparisonTable from "../components/ComparisonTable";
 
 export default function ComparisonPage() {
     const { products } = useContext(GlobalContext);
+    const { product, fetchSingleProduct, isLoading, notFound } = useProducts();
 
     const [firstProductId, setFirstProductId] = useState("");
     const [secondProductId, setSecondProductId] = useState("");
@@ -14,18 +15,17 @@ export default function ComparisonPage() {
         if (!products.length) return;
 
         setFirstProductId((current) => current || String(products[0].id));
-        setSecondProductId((current) => current || String(products[1]?.id ?? products[0].id));
+        setSecondProductId((current) => current || String(products[1].id));
     }, [products]);
 
     useEffect(() => {
-        if (!firstProductId) return;
 
         fetch(`http://localhost:3001/products/${firstProductId}`)
             .then((response) => response.json())
             .then((data) => {
                 setSelectedProducts((previous) => {
                     const next = [...previous];
-                    next[0] = data.product ?? data;
+                    next[0] = data.product;
                     return next;
                 });
             })
@@ -40,7 +40,7 @@ export default function ComparisonPage() {
             .then((data) => {
                 setSelectedProducts((previous) => {
                     const next = [...previous];
-                    next[1] = data.product ?? data;
+                    next[1] = data.product;
                     return next;
                 });
             })
@@ -81,8 +81,8 @@ export default function ComparisonPage() {
                         value={firstProductId}
                         onChange={(event) => setFirstProductId(event.target.value)}
                     >
-                        {products.map((product) => (
-                            <option key={product.id} value={product.id}>
+                        {products.map((product, index) => (
+                            <option key={index} value={product.id}>
                                 {product.title}
                             </option>
                         ))}
@@ -97,8 +97,8 @@ export default function ComparisonPage() {
                         value={secondProductId}
                         onChange={(event) => setSecondProductId(event.target.value)}
                     >
-                        {products.map((product) => (
-                            <option key={product.id} value={product.id}>
+                        {products.map((product, index) => (
+                            <option key={index} value={product.id}>
                                 {product.title}
                             </option>
                         ))}
@@ -107,8 +107,8 @@ export default function ComparisonPage() {
             </div>
 
             <div className="row g-4 align-items-stretch">
-                {[productA, productB].map((product) => (
-                    <div key={product.id} className="col-md-6">
+                {[productA, productB].map((product, index) => (
+                    <div key={index} className="col-md-6">
                         <div className="card h-100">
                             <img
                                 src={product.image}

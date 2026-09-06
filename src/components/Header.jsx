@@ -6,7 +6,7 @@ export default function Header() {
     const { favourites } = useContext(GlobalContext);
 
     return (
-        <nav className="navbar bg-body-tertiary">
+        <nav className="navbar bg-body-tertiary fixed-top">
             <div className=" container container-fluid">
 
                 <div className="d-flex align-items-center gap-3">

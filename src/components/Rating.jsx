@@ -20,8 +20,6 @@ const Rating = ({ rating }) => {
     const halfStarArray = Array.from({ length: halfStar });
     const emptyStarArray = Array.from({ length: 5 - fullStar - halfStar });
 
-    console.log("test")
-
     return (
         <>
             {
