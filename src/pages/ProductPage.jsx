@@ -2,12 +2,13 @@ import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../contexts/GlobalContext";
 import { useParams, useNavigate } from "react-router-dom";
 import Rating from "../components/Rating";
-import useProducts from "../hooks/useProducts";
+import useSingleProduct from "../hooks/useSingleProduct";
+import Loading from "../components/Loading";
 
 export default function ProductPage() {
 
     const { favourites, setFavourites } = useContext(GlobalContext);
-    const { product, fetchSingleProduct, isLoading, notFound } = useProducts();
+    const { product, fetchSingleProduct, isLoading, notFound } = useSingleProduct();
     const { id } = useParams();
 
     const [isFavourite, setIsFavourite] = useState(favourites.some(product => product.id == id))
@@ -26,11 +27,7 @@ export default function ProductPage() {
 
     if (isLoading || !product) {
         return (
-            <div className="d-flex justify-content-center align-items-center" style={{ "height": "100vh" }}>
-                <div className="spinner-border" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                </div>
-            </div>
+            <Loading />
         )
     }
 

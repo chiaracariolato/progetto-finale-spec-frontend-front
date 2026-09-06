@@ -7,7 +7,7 @@ export default function DefaultLayout() {
         <div>
             <Sidebar />
             <Header />
-            <div className="container" style={{ "margin-top": "80px" }}>
+            <div className="container" style={{ "marginTop": "80px" }}>
                 <Outlet />
             </div>
         </div >

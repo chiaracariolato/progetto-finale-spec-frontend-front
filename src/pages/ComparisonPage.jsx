@@ -2,67 +2,24 @@ import { useContext, useEffect, useMemo, useState } from "react";
 import { GlobalContext } from "../contexts/GlobalContext";
 import Rating from "../components/Rating";
 import ComparisonTable from "../components/ComparisonTable";
+import useSingleProduct from "../hooks/useSingleProduct";
+import Loading from "../components/Loading";
 
 export default function ComparisonPage() {
     const { products } = useContext(GlobalContext);
-    const { product, fetchSingleProduct, isLoading, notFound } = useProducts();
-
-    const [firstProductId, setFirstProductId] = useState("");
-    const [secondProductId, setSecondProductId] = useState("");
-    const [selectedProducts, setSelectedProducts] = useState([null, null]);
+    const { product: productA, fetchSingleProduct: fetchProductA } = useSingleProduct();
+    const { product: productB, fetchSingleProduct: fetchProductB } = useSingleProduct();
 
     useEffect(() => {
         if (!products.length) return;
 
-        setFirstProductId((current) => current || String(products[0].id));
-        setSecondProductId((current) => current || String(products[1].id));
+        fetchProductA(products[0].id);
+        fetchProductB(products[1].id)
     }, [products]);
-
-    useEffect(() => {
-
-        fetch(`http://localhost:3001/products/${firstProductId}`)
-            .then((response) => response.json())
-            .then((data) => {
-                setSelectedProducts((previous) => {
-                    const next = [...previous];
-                    next[0] = data.product;
-                    return next;
-                });
-            })
-            .catch((error) => console.error("Error fetching first product", error));
-    }, [firstProductId]);
-
-    useEffect(() => {
-        if (!secondProductId) return;
-
-        fetch(`http://localhost:3001/products/${secondProductId}`)
-            .then((response) => response.json())
-            .then((data) => {
-                setSelectedProducts((previous) => {
-                    const next = [...previous];
-                    next[1] = data.product;
-                    return next;
-                });
-            })
-            .catch((error) => console.error("Error fetching second product", error));
-    }, [secondProductId]);
-
-    const productA = useMemo(
-        () => selectedProducts[0] ?? products.find((product) => Number(product.id) === Number(firstProductId)) ?? null,
-        [selectedProducts, products, firstProductId]
-    );
-
-    const productB = useMemo(
-        () => selectedProducts[1] ?? products.find((product) => Number(product.id) === Number(secondProductId)) ?? null,
-        [selectedProducts, products, secondProductId]
-    );
-
 
     if (!productA || !productB) {
         return (
-            <div className="container mt-4">
-                <div className="alert alert-info">Loading product details...</div>
-            </div>
+            <Loading />
         );
     }
 
@@ -78,8 +35,8 @@ export default function ComparisonPage() {
                     <select
                         id="first-product"
                         className="form-select"
-                        value={firstProductId}
-                        onChange={(event) => setFirstProductId(event.target.value)}
+                        value={productA.id}
+                        onChange={(event) => fetchProductA(event.target.value)}
                     >
                         {products.map((product, index) => (
                             <option key={index} value={product.id}>
@@ -94,8 +51,8 @@ export default function ComparisonPage() {
                     <select
                         id="second-product"
                         className="form-select"
-                        value={secondProductId}
-                        onChange={(event) => setSecondProductId(event.target.value)}
+                        value={productB.id}
+                        onChange={(event) => fetchProductB(event.target.value)}
                     >
                         {products.map((product, index) => (
                             <option key={index} value={product.id}>
