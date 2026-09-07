@@ -10,7 +10,6 @@ export default function useProducts() {
             .then(response => response.json())
             .then(data => setProducts(data))
             .catch(error => console.error(error));
-        console.log("dati presi")
     }
 
     useEffect(fetchProducts, []);

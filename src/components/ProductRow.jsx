@@ -9,7 +9,6 @@ const ProductRow = memo(({ product }) => {
     const [isFavourite, setIsFavourite] = useState(favourites.some(element => element.id == product.id))
 
     function handleFavourites(id) {
-        console.log(favourites)
 
         let newFavourites;
 
