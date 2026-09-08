@@ -4,7 +4,7 @@ import useProducts from "../hooks/useProducts";
 export const GlobalContext = createContext({
     products: [],
     favourites: [],
-    setFavourites: () => { }
+    setFavourites: () => {}
 });
 
 export function GlobalContextProvider({ children }) {
