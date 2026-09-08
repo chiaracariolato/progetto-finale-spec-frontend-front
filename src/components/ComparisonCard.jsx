@@ -13,9 +13,11 @@ const ComparisonCard = ({ product }) => {
                     style={{ height: "260px" }}
                 />
                 <div className="card-body">
-                    <div className="d-flex justify-content-between mb-3">
-                        <h4 className="card-title">{product.title}</h4>
-                        <div className="col-6 text-end">
+                    <div className="d-flex justify-content-between align-items-center mb-3">
+                        <h4 className="card-title mb-0">
+                            {product.title}
+                        </h4>
+                        <div className="text-end">
                             <Rating rating={product.rating} /> / 5
                         </div>
                     </div>
@@ -27,10 +29,17 @@ const ComparisonCard = ({ product }) => {
 
     ) :
         <div className="col-md-6">
-            <div className="card h-100" style={{ "border": "dashed" }}>
-                <p> Select a product</p>
+            <div className="card h-100 border border-secondary-subtle">
+                <div
+                    className="d-flex align-items-center justify-content-center text-secondary"
+                    style={{ height: "100%" }}
+                >
+                    <p className="mb-0 py-5"> Select a product</p>
+                </div>
             </div>
         </div>
+
+
 };
 
 export default ComparisonCard;

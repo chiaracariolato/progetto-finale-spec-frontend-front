@@ -11,11 +11,13 @@ export default function Sidebar() {
                 <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div className="offcanvas-body">
-                <ul className="list-group">
-                    {favourites.map((product) => (
-                        <li className="list-group-item" key={product.id}>{product.title}</li>
-                    ))}
-                </ul>
+                {(favourites.length > 0) ?
+                    <ul className="list-group">
+                        {favourites.map((product) => (
+                            <li className="list-group-item" key={product.id}>{product.title}</li>
+                        ))}
+                    </ul> :
+                    <p>No favourites selected</p>}
             </div>
         </div>
     )

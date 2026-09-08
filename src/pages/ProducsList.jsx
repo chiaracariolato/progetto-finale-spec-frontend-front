@@ -107,9 +107,16 @@ export default function ProductsList() {
                         </tr>
                     </thead>
                     <tbody>
-                        {searchedProducts.map((product) => (
-                            <ProductRow key={product.id} product={product} />
-                        ))}
+                        {searchedProducts.length > 0 ?
+                            (searchedProducts.map((product) =>
+                                (<ProductRow key={product.id} product={product} />))
+                            ) :
+                            (<tr>
+                                <td colSpan="4" className="text-center py-5">
+                                    No results found
+                                </td>
+                            </tr>
+                            )}
                     </tbody>
                 </table>
             </div>
