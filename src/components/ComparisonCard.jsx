@@ -1,6 +1,8 @@
 import Rating from "../components/Rating";
 
-const ComparisonCard = ({ product }) => {
+import { memo } from "react";
+
+const ComparisonCard = memo(({ product }) => {
 
     return product ? (
 
@@ -40,6 +42,6 @@ const ComparisonCard = ({ product }) => {
         </div>
 
 
-};
+});
 
 export default ComparisonCard;

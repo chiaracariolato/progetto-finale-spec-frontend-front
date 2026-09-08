@@ -1,6 +1,8 @@
 import Rating from "./Rating"
 
-export default function ComparisonTable(props) {
+import { memo } from "react";
+
+const ComparisonTable = memo((props) => {
 
     const { productA, productB } = props;
 
@@ -64,4 +66,6 @@ export default function ComparisonTable(props) {
             </table>
         </div>
     )
-}
+})
+
+export default ComparisonTable;
