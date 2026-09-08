@@ -9,7 +9,7 @@ function debounce(callback, delay) {
 }
 
 
-import { useState, useEffect, useContext, useCallback } from "react";
+import { useState, useEffect, useContext, useCallback, useMemo } from "react";
 import { GlobalContext } from "../contexts/GlobalContext";
 import ProductRow from "../components/ProductRow";
 
@@ -20,7 +20,6 @@ export default function ProductsList() {
     const [filterList, setFilterList] = useState([])
     const [sortBy, setSortBy] = useState("");
     const [sortOrder, setSortOrder] = useState(1);
-    const [searchedProducts, setSearchedProducts] = useState([]);
 
     const [searchQuery, setSearchQuery] = useState('');
     const debouceSearch = useCallback(debounce(setSearchQuery, 500), [])
@@ -35,7 +34,7 @@ export default function ProductsList() {
         }
     };
 
-    useEffect(() => {
+    const searchedProducts = useMemo(() => {
         const filteredProducts = products.filter((product) =>
             product.title.toLowerCase().startsWith(searchQuery.toLowerCase()) &&
             (category === "All categories" || product.category === category))
@@ -53,7 +52,7 @@ export default function ProductsList() {
 
             return comparison * sortOrder;
         });
-        setSearchedProducts(filteredProducts);
+        return filteredProducts;
     }, [searchQuery, products, category, sortBy, sortOrder]);
 
     useEffect(() => {
