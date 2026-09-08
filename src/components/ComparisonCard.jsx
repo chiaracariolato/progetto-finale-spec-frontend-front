@@ -7,7 +7,7 @@ const ComparisonCard = memo(({ product }) => {
     return product ? (
 
         <div className="col-md-6">
-            < div className="card h-100" >
+            <div className="card h-100" >
                 <img
                     src={product.image}
                     alt={product.title}
