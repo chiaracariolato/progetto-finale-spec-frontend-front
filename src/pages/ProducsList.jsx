@@ -1,16 +1,30 @@
-import { useState, useEffect, useContext } from "react";
+function debounce(callback, delay) {
+    let timer;
+    return (value) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            callback(value)
+        }, delay)
+    }
+}
+
+
+import { useState, useEffect, useContext, useCallback } from "react";
 import { GlobalContext } from "../contexts/GlobalContext";
 import ProductRow from "../components/ProductRow";
 
 export default function ProductsList() {
     const { products } = useContext(GlobalContext);
 
-    const [searchQuery, setSearchQuery] = useState('');
     const [category, setCategory] = useState("All categories")
-    const [searchedProducts, setSearchedProducts] = useState([]);
     const [filterList, setFilterList] = useState([])
     const [sortBy, setSortBy] = useState("");
     const [sortOrder, setSortOrder] = useState(1);
+    const [searchedProducts, setSearchedProducts] = useState([]);
+
+    const [searchQuery, setSearchQuery] = useState('');
+    const debouceSearch = useCallback(debounce(setSearchQuery, 500), [])
+
 
     const handleSort = (column) => {
         if (sortBy === column) {
@@ -63,8 +77,7 @@ export default function ProductsList() {
                         placeholder="Search product"
                         aria-label="Search product"
                         type='text'
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        value={searchQuery}
+                        onChange={(e) => debouceSearch(e.target.value)}
                     />
 
                     <select className="form-select" aria-label="Default select example" onChange={e => setCategory(e.target.value)}>
