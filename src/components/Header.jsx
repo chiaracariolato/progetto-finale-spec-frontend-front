@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom"
 import { GlobalContext } from "../contexts/GlobalContext";
 import { useContext } from "react";
 
-export default function Header() {
+export default function Header({onOpenSidebar}) {
     const { favourites } = useContext(GlobalContext);
 
     return (
@@ -23,7 +23,7 @@ export default function Header() {
                     </NavLink>
                 </div>
 
-                <button className="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                <button className="btn btn-dark" type="button" onClick={onOpenSidebar} aria-label="Open favourites">
                     <i className={favourites.length > 0 ? "bi bi-heart-fill" : "bi bi-heart"} />
                 </button>
             </div>
