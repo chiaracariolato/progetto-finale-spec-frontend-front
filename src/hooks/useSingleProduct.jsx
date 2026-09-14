@@ -6,25 +6,25 @@ export default function useSingleProduct() {
     const [isLoading, setIsLoading] = useState(true);
     const [notFound, setNotFound] = useState(false);
 
-    const fetchSingleProduct = (id) => {
-        setIsLoading(true);
-        setNotFound(false);
-        fetch(`http://localhost:3001/products/${id}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.product) {
-                    setProduct(data.product);
-                } else {
-                    setNotFound(true);
-                }
-            })
-            .catch(error => {
-                console.error(error);
-                setNotFound(true);
-            })
-            .finally(() => setIsLoading(false));
-    };
+async function fetchSingleProduct(id) {
+    setIsLoading(true);
+    setNotFound(false);
 
+    try {
+        const res = await fetch(`http://localhost:3001/products/${id}`)
+        const data = await res.json()
+        if(data.product) {
+            setProduct(data.product);
+        } else {
+            setNotFound(true);
+        }
+    } catch(error) {
+        console.error(error);
+        setNotFound(true);
+    } finally {
+        setIsLoading(false)
+    }
+}
 
     return {
         product,
