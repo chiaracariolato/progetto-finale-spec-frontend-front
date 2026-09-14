@@ -64,7 +64,9 @@ export default function ProductsList() {
     const newFilterList = []
 
     for (let i = 0; i < products.length; i++) {
-      if (!newFilterList.includes(products[i].category)) newFilterList.push(products[i].category)
+      if (!newFilterList.includes(products[i].category)) {
+        newFilterList.push(products[i].category)
+      }
     }
 
     setFilterList(newFilterList)
@@ -113,7 +115,7 @@ export default function ProductsList() {
                   cursor: 'pointer',
                 }}
               >
-                Title{' '}
+                Title
                 {sortBy == 'title' && (
                   <i
                     className={sortOrder === 1 ? 'bi bi-sort-alpha-down' : 'bi bi-sort-alpha-up'}
@@ -129,7 +131,7 @@ export default function ProductsList() {
                   cursor: 'pointer',
                 }}
               >
-                Category{' '}
+                Category
                 {sortBy == 'category' && (
                   <i
                     className={sortOrder === 1 ? 'bi bi-sort-alpha-down' : 'bi bi-sort-alpha-up'}

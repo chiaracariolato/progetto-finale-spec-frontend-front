@@ -1,22 +1,21 @@
-import { useState } from "react";
+import { useState } from 'react'
 
 export default function useStorage(itemKey, initialValue) {
+  const [state, setState] = useState(() => {
+    const prevState = localStorage.getItem(itemKey)
 
-    const [state, setState] = useState(() => {
-        const prevState = localStorage.getItem(itemKey);
-
-        if(prevState) {
-            return JSON.parse(prevState);
-        } else {
-            localStorage.setItem(itemKey, JSON.stringify(initialValue));
-            return initialValue
-        }
-    });
-
-    const changeState = (newState) => {
-        setState(newState);
-        localStorage.setItem(itemKey, JSON.stringify(newState));
+    if (prevState) {
+      return JSON.parse(prevState)
+    } else {
+      localStorage.setItem(itemKey, JSON.stringify(initialValue))
+      return initialValue
     }
+  })
 
-    return [state, changeState]
+  function changeState(newState) {
+    setState(newState)
+    localStorage.setItem(itemKey, JSON.stringify(newState))
+  }
+
+  return [state, changeState]
 }
